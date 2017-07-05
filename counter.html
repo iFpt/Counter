@@ -1,0 +1,91 @@
+
+
+<html>
+<head>
+<title id="title">0</title>
+
+<script src="counter.js" type="text/javascript">
+	
+</script>
+</head>
+	<body >
+		<table>
+			<tr>
+				<td> 
+					<table width="400"> 
+						<tr onclick="Click()">
+							<td align="center" width="70"> 
+								<img id="im" src="play.svg" width="48" height="48" /> 
+							</td>
+							<td align="center" >
+								<table>
+									<tr>
+									   	<td align="left" width="100">Все время:</td>
+									   	<td align="left" width="200"><p1 id="alltime"> 0:00:00:000 </p1></td>
+									</tr>
+									<tr>
+									   	<td align="left" width="50">Текущее:</td>
+									   	<td align="left" width="200"><p1 id="nowtime"> 0:00:00:000 </p1></td>
+									</tr>
+									<tr>
+									   	<td align="left" width="50">К/Ф:</td>
+									   	<td align="left" width="200"><p1 id="kf"> 0 </p1></td>
+									</tr>
+									<tr>
+									   	<td align="left" width="50">Зарплата:</td>
+									   	<td align="left" width="200"><p1 id="zp"> 0 </p1></td>
+									</tr>
+								</table>
+							</td>
+							<td width="100" align="center">
+								<p1 id="count" style="font-size:90px" > 0 </p1>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr align="center">
+				<td>
+					<table>
+						<tr>
+							<td>
+								<p>Кол. в паке: </p>
+							</td>
+							<td>
+								<input style="width:200px;height:20px" id="countinpack" type="input"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p>К/Ф ссылки: </p>
+							</td>
+							<td>
+								<input style="width:200px;height:20px" id="kfref" type="input"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p>Комментарий: </p>
+							</td>
+							<td>
+								<input style="width:200px;height:20px" id="edit" type="input"/>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr align="center">
+				<td>
+					<table id="tabledata" style="border: 1px solid black; border-collapse: collapse" border="1">
+						<tr id="row">
+						   	<td  align="center" width="10">№</td>
+						   	<td align="center" width="200">Описание</td>
+						   	<td align="center" width="100">Время</td>
+						   	<td align="center" width="20">D</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
