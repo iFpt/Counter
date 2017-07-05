@@ -5,20 +5,27 @@
 	var timerId;
 	var msec = 0;
 	var control = 0;
-	var tempms=0;
-	class Time{
-		constructor(id, description, time)
-		{
-			this.id = id;
+	var tempms = 0;
+	var Salaries = 0;
+	class PackInfo{
+		constructor(description, kfimg, countimg, time){
 			this.description = description;
 			this.time = time;
+			this.kfimg = kfimg;
+			this.countimg = countimg;
 		}
 		GetDescription(){
 			return this.description;
 		}		
+		GetKF(){
+			return this.kfimg;
+		}	
+		GetCountImgInPack(){
+			return this.countimg;
+		}
 		GetTime(){
 			return this.time;
-		}	
+		}
 	}
 	var TimesList = [];
 	function Click()
@@ -33,19 +40,30 @@
 		{
 			document.getElementById("im").src = "play.svg";
 			clearTimeout(timerId);
-			TimesList.push(new Time(n++, document.getElementById("edit").value, ms));
+			n++;
+			var	tkf;
+			var tcountimg;
+			if (document.getElementById("kfref").value == null) {tkf=0;} 
+			else{tkf=document.getElementById("kfref").value;}
+			if (document.getElementById("countinpack").value == null) {tcountimg=0;} 
+			else{tcountimg=document.getElementById("countinpack").value;}
+			var TPackInfo = new PackInfo(document.getElementById("edit").value, +tkf, +tcountimg, +ms);
+			TimesList.push(TPackInfo);
 			control = 0;
 			tempms=msec;
 			WriteColl();
 			ms=0;
 			document.getElementById("nowtime").innerHTML = "0:00:00:000";
-			var z = CalculationSalaries(+document.getElementById("kfref").value, n-1, +document.getElementById("countinpack").value)
-			document.getElementById("zp").innerHTML = z.toFixed(2) + " $";
+			if (document.getElementById("kfref").value == null) {alert('0')}
+			Salaries += CalculationSalaries(TPackInfo.GetKF(), 1, TPackInfo.GetCountImgInPack());
+			document.getElementById("zp").innerHTML = Salaries.toFixed(2) + " $";
 		}
 	}
 	function DClick(obj){
 		msec-=+TimesList[obj.id].GetTime();
 		tempms-=+TimesList[obj.id].GetTime();
+		Salaries -= CalculationSalaries(TimesList[obj.id].GetKF(), 1, TimesList[obj.id].GetCountImgInPack());
+		document.getElementById("zp").innerHTML = Salaries.toFixed(2) + " $";
 		document.getElementById("alltime").innerHTML = ConvertToTimeString(msec);	
 		TimesList.splice(obj.id, 1); //delete record in array
 		n--;
@@ -55,8 +73,7 @@
 			document.getElementById("count").innerHTML = 0;
 			document.getElementById("kf").innerHTML = 0;
 		}
-		var z = CalculationSalaries(+document.getElementById("kfref").value, n-1, +document.getElementById("countinpack").value)
-		document.getElementById("zp").innerHTML = z.toFixed(2) + " $";
+		if ((document.getElementById("kfref").value == null)||(document.getElementById("countinpack").value == null)) {alert('0')}
 	}
 
 	function DeleteCell(id){
@@ -95,9 +112,11 @@
 			document.getElementById("count").innerHTML = n-1;
 			document.getElementById("kf").innerHTML = parseFloat(((msec/1000)/(n-1))).toFixed(2);
 	}
+
 	function CalculationSalaries(kfref, countimg, countimginpack){
 		return kfref*countimg*countimginpack*0.06/120;
 	}
+
 	function ConvertToTimeString(msec){
 		var time = new Date();
 		time.setTime(msec);
