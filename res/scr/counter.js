@@ -1,5 +1,5 @@
 //просьба не увлек-ся поиском ошибок, ибо работа  дотнетчика)
-
+//https://github.com/AndryhaArapchik/Counter
 	var ms = 0;
 	var n = 1;
 	var timerId;
@@ -28,9 +28,11 @@
 		}
 	}
 	var TimesList = [];
+	
+ 
 	function Click()
 	{
-	    	if (control == 0)
+	    if (control == 0)
 		{		
 			timerId = setInterval(EventTimer, 10);
 			document.getElementById("im").src = "res/img/stop.svg";
@@ -57,6 +59,10 @@
 			if (document.getElementById("kfref").value == null) {alert('0')}
 			Salaries += CalculationSalaries(TPackInfo.GetKF(), 1, TPackInfo.GetCountImgInPack());
 			document.getElementById("zp").innerHTML = Salaries.toFixed(2) + " $";
+			var target = +document.getElementById("money").value;
+			var	stat = (100 * Salaries)/target;
+			document.getElementById("progr").value = stat;
+			document.getElementById("status").innerHTML = stat.toFixed(2)+"%";
 		}
 	}
 	function DClick(obj){
@@ -64,6 +70,12 @@
 		tempms-=+TimesList[obj.id].GetTime();
 		Salaries -= CalculationSalaries(TimesList[obj.id].GetKF(), 1, TimesList[obj.id].GetCountImgInPack());
 		document.getElementById("zp").innerHTML = Salaries.toFixed(2) + " $";
+		var target = document.getElementById("money").value;
+		var	stat = (100 * Salaries)/target;
+		document.getElementById("progr").value = stat;
+		document.getElementById("status").innerHTML = stat.toFixed(2)+"%";
+		document.getElementById("progr").value = (100 * Salaries)/target;
+
 		document.getElementById("alltime").innerHTML = ConvertToTimeString(msec);	
 		TimesList.splice(obj.id, 1); //delete record in array
 		n--;
@@ -164,4 +176,7 @@
 			document.getElementById("alltime").innerHTML = ConvertToTimeString(msec);	
 			document.getElementById("nowtime").innerHTML = stringtime;
 	}
-
+	function GetReport()	{
+		alert("В разработке");
+		return 0;
+	}
