@@ -10,7 +10,7 @@
 		<table>
 			<tr>
 				<td> 
-					<table width="400"> 
+					<table width="400" cellpadding="0"> 
 						<tr onclick="Click()">
 							<td align="center" width="70"> 
 								<img id="im" src="res/img/play.svg" width="48" height="48" /> 
@@ -42,9 +42,23 @@
 					</table>
 				</td>
 			</tr>
+			<tr>
+				<td align="center">
+					<table cellpadding="0">	
+						<tr >
+							<td width="150" >
+								<progress id="progr" value="0" max="100"></progress>
+							</td>
+							<td width="70" align="center">
+								<span id="status">0%</span>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
 			<tr align="center">
 				<td>
-					<table>
+					<table>						
 						<tr>
 							<td>
 								<p>Кол. в паке: </p>
@@ -69,10 +83,23 @@
 								<input style="width:200px;height:20px" id="edit" type="input"/>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<p>Цель ($): </p>
+							</td>
+							<td>
+								<input style="width:200px;height:20px" id="money" type="input"/>
+							</td>
+						</tr>
 					</table>
 				</td>
 			</tr>
-			<tr align="center">
+			<tr >
+				<tr >
+				   	<td>
+				   		<button onclick="GetReport()" align="right"> Сформировать отчет </button>
+				   	</td>
+				</tr>
 				<td>
 					<table id="tabledata" style="border: 1px solid black; border-collapse: collapse" border="1">
 						<tr id="row">
