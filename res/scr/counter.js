@@ -32,6 +32,7 @@
  
 	function Click()
 	{
+		window.resizeTo(500,300);
 	    if (control == 0)
 		{		
 			timerId = setInterval(EventTimer, 10);
@@ -61,7 +62,7 @@
 			document.getElementById("zp").innerHTML = Salaries.toFixed(2) + " $";
 			var target = +document.getElementById("money").value;
 			var	stat = (100 * Salaries)/target;
-			document.getElementById("progr").value = stat;
+			document.getElementById("progr").style.width = SetProgr(235,stat);
 			document.getElementById("status").innerHTML = stat.toFixed(2)+"%";
 		}
 	}
@@ -72,10 +73,9 @@
 		document.getElementById("zp").innerHTML = Salaries.toFixed(2) + " $";
 		var target = document.getElementById("money").value;
 		var	stat = (100 * Salaries)/target;
-		document.getElementById("progr").value = stat;
+		document.getElementById("progr").style.width = SetProgr(235, stat);
 		document.getElementById("status").innerHTML = stat.toFixed(2)+"%";
-		document.getElementById("progr").value = (100 * Salaries)/target;
-
+		document.getElementById("progr").style.width = SetProgr(235,(100 * Salaries)/target);
 		document.getElementById("alltime").innerHTML = ConvertToTimeString(msec);	
 		TimesList.splice(obj.id, 1); //delete record in array
 		n--;
@@ -87,7 +87,17 @@
 		}
 		if ((document.getElementById("kfref").value == null)||(document.getElementById("countinpack").value == null)) {alert('0')}
 	}
-
+	function SetProgr(width, value){
+		var pos = 0;
+		pos = (width/100) * value;
+		if (pos >= width) {
+			pos = width;
+		}
+		if (pos <= 0) {
+			pos = 0;
+		}
+		return pos;
+	}
 	function DeleteCell(id){
 		var r = document.getElementById("d"+(+id+2));
 		r.deleteCell(3);
@@ -119,7 +129,7 @@
 			cell.innerHTML = ConvertToTimeString(TimesList[n-2].GetTime());
 			cell.align="center"
 			cell = row.insertCell(3);
-			cell.innerHTML = '<p id ="'+(n-2)+'" onclick="DClick(this)"><img id="im" src="res/img/cross.svg" width="20" height="20" /> </p>';
+			cell.innerHTML = '<p id ="'+(n-2)+'" onclick="DClick(this)"><img id="im" src="res/img/cross.svg" width="15" height="15" /> </p>';
 			document.getElementById("title").innerHTML = n-1;
 			document.getElementById("count").innerHTML = n-1;
 			document.getElementById("kf").innerHTML = parseFloat(((msec/1000)/(n-1))).toFixed(2);
@@ -176,7 +186,57 @@
 			document.getElementById("alltime").innerHTML = ConvertToTimeString(msec);	
 			document.getElementById("nowtime").innerHTML = stringtime;
 	}
+
+
 	function GetReport()	{
-		alert("В разработке");
+		//alert("В разработке");
+		/*var Tasks = [];
+		class infolinks{
+			constructor(description, kf, countimginpack, countpacks, zp, time){
+				this.description = description;
+				this.time = time;
+				this.kfimg = kfimg;
+				this.countimginpack = countimginpack;
+				this.countpacks = countpacks;
+				this.zp = zp;
+			}
+			GetDescription(){
+				return this.description;
+			}		
+			GetKF(){
+				return this.kfimg;
+			}	
+			GetCountImgInPack(){
+				return this.countimginpack;
+			}
+			GetTime(){
+				return this.time;
+			}
+			GetCountPacks(){
+				return this.countpacks;
+			}	
+			GetZp(){
+				return this.zp;
+			}	
+		}
+		var tempstr = [];
+		for (var i = 0; i < TimesList.length; i++) {
+			if (!tempstr.includes(TimesList[i].GetDescription())) {
+				tempstr.push(TimesList[i].GetDescription());
+			}
+		}
+		var str ='';
+		for (var i = 0; i <tempstr.length; i++) {
+			str=tempstr[i];
+			var countitem=0;
+			for (var j = 0; j < TimesList.length; j++) {
+				if (TimesList[i].GetDescription() === tempstr[i]) {
+					countitem++;                        
+				}
+			}
+			Tasks.push(new infolinks(tempstr[i], ))
+		}
+		alert(str);
 		return 0;
+	//	Tasks.push(new infolinks(TimesList[i].GetDescription(), TimesList[i].GetKF, TimesList[i].GetCountImgInPack(), TimesList[i]))*/
 	}
