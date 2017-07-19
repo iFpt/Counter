@@ -1,0 +1,49 @@
+
+	body{
+		background-color: #2e2e2e;
+		min-width: 450px;
+	}
+	td{
+		color: #b9b9b9;
+	}
+	input{
+		border: none;
+		border-bottom:1px solid #b9b9b9;
+		background-color: #2e2e2e;
+	    box-shadow: 0 0 0px #a4a4a4;
+	    border-color: #818181;
+	    color:#b9b9b9;
+	}
+	#tabledata{
+		border:solid 0px #b9b9b9;
+		border-collapse: collapse;
+		
+	}
+	#tabledata td{
+		border-bottom:1px solid #b9b9b9;
+	}
+	.progress-bar {
+        background-color: #393939;
+        height: 15px;
+        padding: 1px;
+        width: 235px;
+        margin: 0px 0;
+       }
+
+	.progress-bar span {
+		background-color: #b9b9b9;
+        display: inline-block;
+        height: 15px;
+        width: 200px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+        -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+        -webkit-transition: width .4s ease-in-out;
+        -moz-transition: width .4s ease-in-out;
+        -ms-transition: width .4s ease-in-out;
+        -o-transition: width .4s ease-in-out;
+        transition: width .4s ease-in-out;
+	}
