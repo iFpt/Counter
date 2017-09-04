@@ -1,7 +1,7 @@
-//просьба не увлек-ся поиском ошибок, ибо работа  дотнетчика)
 //https://github.com/AndryhaArapchik/Counter
 	var ms = 0;
 	var n = 1;
+	var ReportLinkNum = 0;
 	var timerId;
 	var msec = 0;
 	var control = 0;
@@ -188,17 +188,20 @@
 	}
 
 
-	function GetReport()	{
-		//alert("В разработке");
-		/*var Tasks = [];
+	function GetReport(){
+		document.getElementById("tablework").setAttribute("hidden", true);
+		document.getElementById("tablereport").removeAttribute("hidden");
+
+		var Tasks = [];
 		class infolinks{
-			constructor(description, kf, countimginpack, countpacks, zp, time){
+			constructor(description, kf, countimginpack, countpacks, zp, time, kfimg){
 				this.description = description;
 				this.time = time;
 				this.kfimg = kfimg;
 				this.countimginpack = countimginpack;
 				this.countpacks = countpacks;
 				this.zp = zp;
+				this.kf = kf;
 			}
 			GetDescription(){
 				return this.description;
@@ -218,25 +221,87 @@
 			GetZp(){
 				return this.zp;
 			}	
+			GetKFLink(){
+				return this.kf;
+			}	
+			GetTextInfo(){
+				var result = "";
+				result += "description: " + this.description + '\n';
+				result += "kfimg: " + this.kfimg + '\n';
+				result += "countimginpack: " + this.countimginpack + '\n';
+				result += "time: " + this.time + '\n';
+				result += "countpacks: " + this.countpacks + '\n';
+				result += "kf: " + this.kf + '\n';
+				result += "zp: " + this.zp + '\n';
+				return result;
+			}
 		}
+
 		var tempstr = [];
 		for (var i = 0; i < TimesList.length; i++) {
 			if (!tempstr.includes(TimesList[i].GetDescription())) {
 				tempstr.push(TimesList[i].GetDescription());
 			}
 		}
-		var str ='';
-		for (var i = 0; i <tempstr.length; i++) {
-			str=tempstr[i];
-			var countitem=0;
-			for (var j = 0; j < TimesList.length; j++) {
-				if (TimesList[i].GetDescription() === tempstr[i]) {
-					countitem++;                        
-				}
-			}
-			Tasks.push(new infolinks(tempstr[i], ))
+		var t = document.getElementById("report");
+		for (i=document.getElementById("report").tBodies[0].rows.length-1; i>=1; i--) {
+			document.getElementById("report").tBodies[0].deleteRow(i);
 		}
-		alert(str);
-		return 0;
-	//	Tasks.push(new infolinks(TimesList[i].GetDescription(), TimesList[i].GetKF, TimesList[i].GetCountImgInPack(), TimesList[i]))*/
+
+		for (var i = 0; i<tempstr.length; i++) {
+			var PacksInLink = GetPacksAtDescription(tempstr[i]);
+			var TimeWorkOnLink = 0;
+			var tempzp = parseFloat(PacksInLink.length * (CalculationSalaries(PacksInLink[0].GetKF(), 1, 
+				PacksInLink[0].GetCountImgInPack()))).toFixed(3);
+			for (var j = 0; j < PacksInLink.length; j++) {
+				TimeWorkOnLink+=PacksInLink[j].GetTime();
+			}
+			var Link = new infolinks(tempstr[i], PacksInLink[0].GetKF(), PacksInLink[0].GetCountImgInPack(),
+			 PacksInLink.length, tempzp, TimeWorkOnLink, parseFloat(((TimeWorkOnLink/1000)/(PacksInLink.length))).toFixed(2));
+
+			var t = document.getElementById("report");
+			var row = t.insertRow(1);
+			ReportLinkNum = tempstr.length - i;
+			var cell = row.insertCell(0);
+			cell.innerHTML = ReportLinkNum;
+			cell.align="center";
+			cell = row.insertCell(1);
+			cell.innerHTML = Link.GetDescription();
+			cell.align="center";
+			cell = row.insertCell(2);
+			cell.innerHTML = Link.GetKFLink();
+			cell.align="center";
+			cell = row.insertCell(3);
+			cell.innerHTML = Link.GetCountImgInPack();
+				cell.align="center";
+			cell = row.insertCell(4);
+			cell.innerHTML = Link.GetCountPacks();
+				cell.align="center";
+			cell = row.insertCell(5);
+			cell.innerHTML = Link.GetTime() + " ("+ConvertToTimeString(Link.GetTime())+")";
+				cell.align="center"
+			cell = row.insertCell(6);
+			cell.innerHTML = Link.GetKF();
+				cell.align="center"
+			cell = row.insertCell(7);
+			cell.innerHTML = Link.GetZp();
+			cell.align="center"
+			document.getElementById("title").innerHTML = n-1;
+			document.getElementById("count").innerHTML = n-1;
+			document.getElementById("kf").innerHTML = parseFloat(((msec/1000)/(n-1))).toFixed(2);
+		}
 	}
+
+function GetPacksAtDescription(description){
+	var ListPacks = [];
+	for (var i = 0; i < TimesList.length; i++) {
+		if (description == TimesList[i].GetDescription()) {
+			ListPacks.push(TimesList[i]);
+		}
+	}
+	return ListPacks;
+}
+function ShowWorkTable(){
+		document.getElementById("tablereport").setAttribute("hidden", true);
+		document.getElementById("tablework").removeAttribute("hidden");
+}
