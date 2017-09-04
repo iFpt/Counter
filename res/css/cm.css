@@ -22,6 +22,9 @@
 	#tabledata td{
 		border-bottom:1px solid #b9b9b9;
 	}
+	#report td{
+		border-bottom:1px solid #b9b9b9;
+	}
 	.progress-bar {
         background-color: #393939;
         height: 15px;
